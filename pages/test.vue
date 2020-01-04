@@ -1,22 +1,16 @@
 <template>
   <v-container>
     <v-row>
-      <v-col md="9">
+      <v-col cols="12" sm="12" md="9">
         <h1 class="display-1 font-weight-medium	">How are you doing?</h1>
         <v-row>
           <v-col>
-            <b-button @click="test" @hover="haha" class="px-0" text
-              >Back to Community</b-button
+            <b-btn @click="test" @hover="haha" class="px-0" text
+              >Back to Community</b-btn
             >
-            <b-button @click="test" @hover="haha" class="px-0" text
-              >Mute</b-button
-            >
-            <b-button @click="test" @hover="haha" class="px-0" text
-              >Edit</b-button
-            >
-            <b-button @click="test" @hover="haha" class="px-0" text
-              >Report</b-button
-            >
+            <b-btn @click="test" @hover="haha" class="px-0" text>Mute</b-btn>
+            <b-btn @click="test" @hover="haha" class="px-0" text>Edit</b-btn>
+            <b-btn @click="test" @hover="haha" class="px-0" text>Report</b-btn>
           </v-col>
         </v-row>
 
@@ -29,13 +23,13 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title class="font-weight-bold ">
+            <v-list-item-title class="font-weight-bold">
               Evan You
             </v-list-item-title>
             <v-list-item-subtitle class="mb-4">
               3 days ago
             </v-list-item-subtitle>
-            <v-list-item-content class="description py-0">
+            <v-list-item-content class="py-0">
               <p class="mb-4">
                 Welcome to 2020. If you’re subscribed to the newsletter, you
                 probably got an email from me earlier today. But if for some
@@ -83,45 +77,24 @@
         </div>
 
         <v-layout
-          class="test"
-          style="position: relative"
+          v-for="i in 2"
+          :key="i"
+          class="comment-container"
           column
           justify-center
           align-start
         >
-          <v-layout>
-            <v-avatar class=" mb-2" size="30">
-              <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
-            </v-avatar>
-            <v-col>
-              <span>asdasdsadas</span>
-              <span>asdasdsadas</span>
-              <span>asdasdsadas</span>
-              <span>asdasdsadas</span>
-            </v-col>
-          </v-layout>
-
-          <v-list-item class="px-0" three-line>
-            <v-list-item-avatar>
-              <v-avatar size="32">
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/lists/1.jpg"
-                ></v-img>
-              </v-avatar>
-            </v-list-item-avatar>
-
-            <v-list-item-content class="py-0">
-              <p>
-                asdasdasdsaasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdas
-              </p>
-              <p>asdasdasdsaasd</p>
-              <p>asdasdasdsaasd</p>
-            </v-list-item-content>
-          </v-list-item>
+          <b-comment :comment="comment">
+            <!-- Sub comments start here -->
+            <v-list-item v-for="i in 2" :key="i" class="px-0">
+              <v-list-item-avatar class="mr-2"></v-list-item-avatar>
+              <b-comment :comment="comment"></b-comment>
+            </v-list-item>
+          </b-comment>
         </v-layout>
       </v-col>
 
-      <v-col md="3">
+      <v-col cols="12" sm="12" md="3">
         asd
       </v-col>
     </v-row>
@@ -130,10 +103,30 @@
 
 <script>
 import BaseButton from '@/components/base/Button'
+import BaseComment from '@/components/base/Comment'
 
 export default {
   components: {
-    'b-button': BaseButton
+    'b-btn': BaseButton,
+    'b-comment': BaseComment
+  },
+  data() {
+    return {
+      comment: `<p>
+                  <span class="font-weight-bold">Eric You</span>
+                  What are you doing oh?What are you doing oh?What are you doing
+                  oh?What are you doing oh?What are you doing oh?What are you
+                  doing oh?What are you doing oh?What are you doing oh?What are
+                  you doing oh?What are you doing oh?What are you doing oh?What
+                  are you doing oh?What are you doing oh?
+                </p><p>
+                  WhatWhatWhatWhatWhatWhatWhatWhatWhatWhatWhatWhatWhatWhat are you doing oh?What are you doing oh?What are you doing
+                  oh?What are you doing oh?What are you doing oh?What are you
+                  doing oh?What are you doing oh?What are you doing oh?What are
+                  you doing oh?What are you doing oh?What are you doing oh?What
+                  are you doing oh?What are you doing oh?
+                      </p>`
+    }
   },
   methods: {
     test() {
@@ -147,27 +140,22 @@ export default {
 </script>
 
 <style scoped>
-.description p {
-  line-height: 24px;
+p {
+  line-height: 24px !important;
 }
-</style>
 
-<style>
-.test:before {
-  left: 15px;
+.comment-container {
+  position: relative;
+}
+
+.comment-container:before {
+  left: 20px;
   bottom: 0;
   content: '';
-  height: 100%;
+  height: calc(100% - 48px);
   position: absolute;
-  top: 0px;
+  top: 55px;
   width: 2px;
   background: rgba(0, 0, 0, 0.12);
 }
-/* .v-application--is-ltr .v-timeline--dense:not(.v-timeline--reverse):before {
-  left: 0;
-}
-
-.v-timeline--dense .v-timeline-item__body {
-  max-width: calc(100% - 51px);
-} */
 </style>

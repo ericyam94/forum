@@ -25,7 +25,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar :clipped-left="clipped" fixed flat app>
+    <v-app-bar :clipped-left="clipped" fixed app elevate-on-scroll>
       <v-container class="py-0" fill-height>
         <v-row align="center">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -73,7 +73,7 @@
       </v-container>
     </v-app-bar>
 
-    <v-content>
+    <v-content id="testa">
       <v-container>
         <nuxt />
       </v-container>
@@ -110,3 +110,5 @@ export default {
   }
 }
 </script>
+
+<style></style>
