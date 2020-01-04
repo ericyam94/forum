@@ -14,7 +14,6 @@
           </v-col>
         </v-row>
 
-        <!-- <v-card flat> -->
         <v-list-item class="grow px-1" three-line>
           <v-list-item-avatar>
             <v-avatar>
@@ -56,6 +55,7 @@
           <v-list-item-content>
             <v-col class="pa-0">
               <v-textarea
+                v-model="comment"
                 autofocus
                 auto-grow
                 class="mb-3"
@@ -66,32 +66,40 @@
                 rows="3"
                 single-line
               />
-              <v-btn elevation="0" rounded>Post comment</v-btn>
+              <b-btn @click="post" elevation="0" rounded>Post comment</b-btn>
             </v-col>
           </v-list-item-content>
         </v-list-item>
-        <!-- </v-card> -->
 
         <div class="my-4">
           <span>32 comments</span>
         </div>
 
-        <v-layout
-          v-for="i in 2"
-          :key="i"
-          class="comment-container"
-          column
-          justify-center
-          align-start
-        >
-          <b-comment :comment="comment">
-            <!-- Sub comments start here -->
-            <v-list-item v-for="i in 2" :key="i" class="px-0">
-              <v-list-item-avatar class="mr-2"></v-list-item-avatar>
-              <b-comment :comment="comment"></b-comment>
-            </v-list-item>
-          </b-comment>
-        </v-layout>
+        <v-slide-y-transition group>
+          <v-layout
+            v-for="c in comments"
+            :key="c.id"
+            :class="c.subcomments.length > 0 ? 'comment-container' : null"
+            column
+            justify-center
+            align-start
+          >
+            <b-comment :comment="c.comment">
+              <!-- Sub comments start here -->
+              <v-list-item
+                v-for="(sc, x) in c.subcomments"
+                :key="x"
+                class="px-0"
+              >
+                <v-list-item-avatar
+                  class="mr-2 my-0"
+                  style="align-items: flex-start; align-self: flex-start"
+                ></v-list-item-avatar>
+                <b-comment :comment="sc.comment"></b-comment>
+              </v-list-item>
+            </b-comment>
+          </v-layout>
+        </v-slide-y-transition>
       </v-col>
 
       <v-col cols="12" sm="12" md="3">
@@ -112,7 +120,10 @@ export default {
   },
   data() {
     return {
-      comment: `<p>
+      comments: [
+        {
+          id: 3,
+          comment: `<p>
                   <span class="font-weight-bold">Eric You</span>
                   What are you doing oh?What are you doing oh?What are you doing
                   oh?What are you doing oh?What are you doing oh?What are you
@@ -125,7 +136,29 @@ export default {
                   doing oh?What are you doing oh?What are you doing oh?What are
                   you doing oh?What are you doing oh?What are you doing oh?What
                   are you doing oh?What are you doing oh?
-                      </p>`
+                      </p>`,
+          subcomments: [
+            {
+              comment:
+                '<p><span class="font-weight-bold">Eric You</span> asdasdasdasdasdasdas</p>'
+            }
+          ]
+        },
+        {
+          id: 2,
+          comment:
+            '<p><span class="font-weight-bold">Only Comment</span> asdasdasdasdasdasdas</p>',
+          subcomments: []
+        },
+        {
+          id: 1,
+          comment:
+            '<p><span class="font-weight-bold">Only Comment 1</span> asdasdasdasdasdasdas</p>',
+          subcomments: []
+        }
+      ],
+      comment: null,
+      count: 4
     }
   },
   methods: {
@@ -134,6 +167,13 @@ export default {
     },
     haha() {
       console.log('hehe')
+    },
+    post() {
+      this.comments.unshift({
+        id: this.count++,
+        comment: `<p><span class="font-weight-bold">Eric Yam</span> ${this.comment}</p>`,
+        subcomments: []
+      })
     }
   }
 }
@@ -149,12 +189,12 @@ p {
 }
 
 .comment-container:before {
-  left: 20px;
+  left: 19px;
   bottom: 0;
   content: '';
-  height: calc(100% - 48px);
+  height: calc(100% - 40px);
   position: absolute;
-  top: 55px;
+  top: 35px;
   width: 2px;
   background: rgba(0, 0, 0, 0.12);
 }

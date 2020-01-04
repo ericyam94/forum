@@ -1,13 +1,16 @@
 <template>
   <div>
-    <v-list-item class="px-0" three-line>
-      <v-list-item-avatar class="mr-2" style="align-items: flex-start">
+    <v-list-item class="px-0">
+      <v-list-item-avatar
+        class="mr-2 my-0"
+        style="align-items: flex-start; align-self: flex-start"
+      >
         <v-avatar :size="size">
           <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg" />
         </v-avatar>
       </v-list-item-avatar>
 
-      <v-list-item-content>
+      <v-list-item-content class="py-0 pb-3">
         <v-list-item-title v-html="comment" class="comment" />
 
         <v-list-item-subtitle class="mb-4">
