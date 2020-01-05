@@ -73,7 +73,7 @@
       </v-container>
     </v-app-bar>
 
-    <v-content id="testa">
+    <v-content>
       <v-container>
         <nuxt />
       </v-container>
