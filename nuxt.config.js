@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import webpack from 'webpack'
 
 export default {
   mode: 'universal',
@@ -30,7 +31,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: '~plugins/nuxt-quill-plugin', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -80,6 +81,13 @@ export default {
    ** Build configuration
    */
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        'window.Quill': 'quill/dist/quill.js',
+        Quill: 'quill/dist/quill.js',
+        _: 'lodash'
+      })
+    ],
     /*
      ** You can extend webpack config here
      */
