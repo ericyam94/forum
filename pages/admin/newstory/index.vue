@@ -1,34 +1,44 @@
 <template>
   <section class="container">
-    <div class="quill-editor-example">
-      <!-- quill-editor -->
-      <v-btn color="primary">Save as Draft</v-btn>
-      <v-btn color="primary">Save</v-btn>
-      <no-ssr>
-        <quill-editor
-          v-model="editorContent"
-          :options="editorOption"
-          @blur="onEditorBlur($event)"
-          @focus="onEditorFocus($event)"
-          @ready="onEditorReady($event)"
-        ></quill-editor>
-      </no-ssr>
-      <div class="quill-code">
-        <div class="title">Code</div>
-        <code class="hljs xml" v-html="contentCode"></code>
-      </div>
-    </div>
+    <v-bottom-sheet v-model="sheet">
+      <template v-slot:activator="{ on }">
+        <div class="quill-editor-example">
+          <!-- quill-editor -->
+          <v-btn color="primary">Save as Draft</v-btn>
+          <v-btn color="primary">Save</v-btn>
+          <no-ssr>
+            <quill-editor
+              v-model="editorContent"
+              :options="editorOption"
+              @blur="onEditorBlur($event)"
+              @focus="onEditorFocus($event)"
+              @ready="onEditorReady($event)"
+            ></quill-editor>
+          </no-ssr>
+          <v-btn color="purple" dark v-on="on">Open Code</v-btn>
+        </div>
+      </template>
+      <v-sheet class="text-center">
+        <v-btn class="mt-6" flat color="red" @click="sheet = !sheet">close</v-btn>
+        <v-btn class="mt-6" flat color="purple" @click="copyText">copy</v-btn>
+        <div class="quill-code">
+          <div class="title">Code</div>
+          <code class="hljs xml" v-html="contentCode" ref="htmlText"></code>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </section>
 </template>
 
 <script>
 import hljs from 'highlight.js'
-import contentjs from './ext_content.js'
+import contentjs, { selectText } from './ext_obj.js'
 import _ from 'lodash'
 
 export default {
   data () {
     return {
+      sheet: false,
       contentCode: null,
       editorContent: contentjs.content,
       editorOption: {
@@ -75,6 +85,11 @@ export default {
     }
   },
   methods: {
+    selectText,
+    copyText () {
+      this.selectText(this.$refs.htmlText)
+      document.execCommand("copy");
+    },
     imageHandler () {
       alert('image handler customize')
     },
