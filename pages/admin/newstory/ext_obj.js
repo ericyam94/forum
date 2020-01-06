@@ -6,7 +6,7 @@ const contentjs = {
 export default contentjs
 
 export function selectText(element) {
-  var range
+  let range
   if (document.selection) {
     // IE
     range = document.body.createTextRange()

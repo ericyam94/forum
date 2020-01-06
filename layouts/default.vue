@@ -35,7 +35,7 @@
             </template>
 
             <v-list>
-              <v-list-item v-for="(item, index) in items" :key="index" @click>
+              <v-list-item v-for="(item, index) in items" :key="index">
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -62,7 +62,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: false,
@@ -80,8 +80,8 @@ export default {
         },
         {
           icon: 'mdi-account-tie',
-          title: 'new-story',
-          to: '/admin/newstory'
+          title: 'admin',
+          to: '/admin'
         }
       ],
       miniVariant: false,

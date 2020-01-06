@@ -15,15 +15,15 @@
               @ready="onEditorReady($event)"
             ></quill-editor>
           </no-ssr>
-          <v-btn color="purple" dark v-on="on">Open Code</v-btn>
+          <v-btn v-on="on" color="purple" dark>Open Code</v-btn>
         </div>
       </template>
       <v-sheet class="text-center">
-        <v-btn class="mt-6" flat color="red" @click="sheet = !sheet">close</v-btn>
-        <v-btn class="mt-6" flat color="purple" @click="copyText">copy</v-btn>
+        <v-btn @click="sheet = !sheet" class="mt-6" flat color="red">close</v-btn>
+        <v-btn @click="copyText" class="mt-6" flat color="purple">copy</v-btn>
         <div class="quill-code">
           <div class="title">Code</div>
-          <code class="hljs xml" v-html="contentCode" ref="htmlText"></code>
+          <code ref="htmlText" v-html="contentCode" class="hljs xml"></code>
         </div>
       </v-sheet>
     </v-bottom-sheet>
@@ -32,11 +32,12 @@
 
 <script>
 import hljs from 'highlight.js'
-import contentjs, { selectText } from './ext_obj.js'
 import _ from 'lodash'
+import contentjs, { selectText } from './ext_obj.js'
 
 export default {
-  data () {
+  layout: 'auth',
+  data() {
     return {
       sheet: false,
       contentCode: null,
@@ -47,20 +48,22 @@ export default {
         theme: 'snow',
         modules: {
           toolbar: {
-            container: [['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{ 'header': 1 }, { 'header': 2 }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'script': 'sub' }, { 'script': 'super' }],
-            [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'direction': 'rtl' }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'font': [] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['clean'],
-            ['link', 'image', 'video']],
+            container: [
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ header: 1 }, { header: 2 }],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ script: 'sub' }, { script: 'super' }],
+              [{ indent: '-1' }, { indent: '+1' }],
+              [{ direction: 'rtl' }],
+              [{ size: ['small', false, 'large', 'huge'] }],
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              [{ font: [] }],
+              [{ color: [] }, { background: [] }],
+              [{ align: [] }],
+              ['clean'],
+              ['link', 'image', 'video']
+            ]
             // handlers: {
             //   'image': this.imageHandler
             // }
@@ -77,48 +80,47 @@ export default {
               border: 'none',
               color: 'white'
             },
-            modules: ['Resize', 'DisplaySize', 'Toolbar'],
-
-          },
-        },
+            modules: ['Resize', 'DisplaySize', 'Toolbar']
+          }
+        }
       }
     }
   },
-  methods: {
-    selectText,
-    copyText () {
-      this.selectText(this.$refs.htmlText)
-      document.execCommand("copy");
-    },
-    imageHandler () {
-      alert('image handler customize')
-    },
-    onEditorBlur (editor) {
-      console.log('editor blur!', editor)
-    },
-    onEditorFocus (editor) {
-      console.log('editor focus!', editor)
-    },
-    onEditorReady (editor) {
-      console.log('editor ready!', editor)
-    },
-    getContent () {
-      this.contentCode = hljs.highlightAuto(`${this.editorContent}`).value
-    }
-  },
   watch: {
-    editorContent (newC, oldC) {
+    editorContent(newC, oldC) {
       this.contentCode = '<p>Waiting for you to stop typing...</p>'
       this.debouncedGetContent()
     }
   },
-  mounted () {
+  mounted() {
     this.getContent()
     console.log('app init, my quill insrance object is:', this.myQuillEditor)
   },
-  created () {
+  created() {
     this.debouncedGetContent = _.debounce(this.getContent, 500)
   },
+  methods: {
+    selectText,
+    copyText() {
+      this.selectText(this.$refs.htmlText)
+      document.execCommand('copy')
+    },
+    imageHandler() {
+      alert('image handler customize')
+    },
+    onEditorBlur(editor) {
+      console.log('editor blur!', editor)
+    },
+    onEditorFocus(editor) {
+      console.log('editor focus!', editor)
+    },
+    onEditorReady(editor) {
+      console.log('editor ready!', editor)
+    },
+    getContent() {
+      this.contentCode = hljs.highlightAuto(`${this.editorContent}`).value
+    }
+  }
 }
 </script>
 
@@ -134,7 +136,7 @@ export default {
 .container {
   width: 60%;
   margin: 0 auto;
-  padding: 50px 0;
+  padding: 5px 0;
   .quill-editor {
     min-height: 400px;
     max-height: 600px;
