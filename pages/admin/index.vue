@@ -4,7 +4,10 @@
 
 <script>
 export default {
-  layout: 'auth'
+  layout: 'auth',
+  data() {
+    return {}
+  }
 }
 </script>
 

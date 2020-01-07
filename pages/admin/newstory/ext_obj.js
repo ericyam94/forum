@@ -4,3 +4,18 @@ const contentjs = {
 }
 
 export default contentjs
+
+export function selectText(element) {
+  let range
+  if (document.selection) {
+    // IE
+    range = document.body.createTextRange()
+    range.moveToElementText(element)
+    range.select()
+  } else if (window.getSelection) {
+    range = document.createRange()
+    range.selectNode(element)
+    window.getSelection().removeAllRanges()
+    window.getSelection().addRange(range)
+  }
+}

@@ -1,34 +1,47 @@
 <template>
   <section class="container">
-    <div class="quill-editor-example">
-      <!-- quill-editor -->
-      <v-btn color="primary">Save as Draft</v-btn>
-      <v-btn color="primary">Save</v-btn>
-      <no-ssr>
-        <quill-editor
-          v-model="editorContent"
-          :options="editorOption"
-          @blur="onEditorBlur($event)"
-          @focus="onEditorFocus($event)"
-          @ready="onEditorReady($event)"
-        ></quill-editor>
-      </no-ssr>
-      <div class="quill-code">
-        <div class="title">Code</div>
-        <code v-html="contentCode" class="hljs xml"></code>
-      </div>
-    </div>
+    <v-bottom-sheet v-model="sheet">
+      <template v-slot:activator="{ on }">
+        <div class="quill-editor-example">
+          <!-- quill-editor -->
+          <v-btn color="primary">Save as Draft</v-btn>
+          <v-btn color="primary">Save</v-btn>
+          <no-ssr>
+            <quill-editor
+              v-model="editorContent"
+              :options="editorOption"
+              @blur="onEditorBlur($event)"
+              @focus="onEditorFocus($event)"
+              @ready="onEditorReady($event)"
+            ></quill-editor>
+          </no-ssr>
+          <v-btn v-on="on" color="purple" dark>Open Code</v-btn>
+        </div>
+      </template>
+      <v-sheet class="text-center">
+        <v-btn @click="sheet = !sheet" class="mt-6" flat color="red"
+          >close</v-btn
+        >
+        <v-btn @click="copyText" class="mt-6" flat color="purple">copy</v-btn>
+        <div class="quill-code">
+          <div class="title">Code</div>
+          <code ref="htmlText" v-html="contentCode" class="hljs xml"></code>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </section>
 </template>
 
 <script>
 import hljs from 'highlight.js'
 import _ from 'lodash'
-import contentjs from './ext_content.js'
+import contentjs, { selectText } from './ext_obj.js'
 
 export default {
+  layout: 'auth',
   data() {
     return {
+      sheet: false,
       contentCode: null,
       editorContent: contentjs.content,
       editorOption: {
@@ -89,6 +102,11 @@ export default {
     this.debouncedGetContent = _.debounce(this.getContent, 500)
   },
   methods: {
+    selectText,
+    copyText() {
+      this.selectText(this.$refs.htmlText)
+      document.execCommand('copy')
+    },
     imageHandler() {
       alert('image handler customize')
     },
@@ -120,7 +138,7 @@ export default {
 .container {
   width: 60%;
   margin: 0 auto;
-  padding: 50px 0;
+  padding: 5px 0;
   .quill-editor {
     min-height: 400px;
     max-height: 600px;
