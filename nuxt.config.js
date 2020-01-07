@@ -31,7 +31,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/nuxt-quill-plugin', ssr: false }],
+  plugins: [
+    { src: '~plugins/nuxt-quill-plugin', ssr: false },
+    { src: '@/plugins/global-component-loader' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */

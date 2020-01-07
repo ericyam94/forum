@@ -1,8 +1,34 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      fixed
+      app
+    >
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <v-avatar>
+            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+          </v-avatar>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>John Leider</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
       <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -17,12 +43,21 @@
       <v-container class="py-0" fill-height>
         <v-row align="center">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-          <!-- <v-toolbar-items> -->
-          <v-btn :to="{ name: 'test' }" text>Feed</v-btn>
-          <v-btn text>Discover</v-btn>
-          <v-btn text>Community</v-btn>
-          <!-- </v-toolbar-items> -->
-          <v-text-field dense filled hide-details placeholder="Search..." rounded single-line />
+          <div class="d-none d-sm-flex">
+            <!-- <v-toolbar-items> -->
+            <v-btn :to="{ name: 'feed' }" text>Feed</v-btn>
+            <v-btn :to="{ name: 'test' }" text>Discover</v-btn>
+            <v-btn text>Community</v-btn>
+            <!-- </v-toolbar-items> -->
+          </div>
+          <v-text-field
+            dense
+            filled
+            hide-details
+            placeholder="Search..."
+            rounded
+            single-line
+          />
           <v-spacer />
 
           <v-menu auto offset-y>
@@ -41,7 +76,7 @@
             </v-list>
           </v-menu>
 
-          <v-avatar>
+          <v-avatar class="d-none d-sm-flex">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-avatar>
         </v-row>
@@ -62,7 +97,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: false,
@@ -91,4 +126,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+@media (min-width: 1904px) {
+  .container {
+    max-width: 1185px;
+  }
+}
+</style>

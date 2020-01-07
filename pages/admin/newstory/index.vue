@@ -15,7 +15,7 @@
       </no-ssr>
       <div class="quill-code">
         <div class="title">Code</div>
-        <code class="hljs xml" v-html="contentCode"></code>
+        <code v-html="contentCode" class="hljs xml"></code>
       </div>
     </div>
   </section>
@@ -23,11 +23,11 @@
 
 <script>
 import hljs from 'highlight.js'
-import contentjs from './ext_content.js'
 import _ from 'lodash'
+import contentjs from './ext_content.js'
 
 export default {
-  data () {
+  data() {
     return {
       contentCode: null,
       editorContent: contentjs.content,
@@ -37,20 +37,22 @@ export default {
         theme: 'snow',
         modules: {
           toolbar: {
-            container: [['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{ 'header': 1 }, { 'header': 2 }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'script': 'sub' }, { 'script': 'super' }],
-            [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'direction': 'rtl' }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'font': [] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['clean'],
-            ['link', 'image', 'video']],
+            container: [
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block'],
+              [{ header: 1 }, { header: 2 }],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ script: 'sub' }, { script: 'super' }],
+              [{ indent: '-1' }, { indent: '+1' }],
+              [{ direction: 'rtl' }],
+              [{ size: ['small', false, 'large', 'huge'] }],
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              [{ font: [] }],
+              [{ color: [] }, { background: [] }],
+              [{ align: [] }],
+              ['clean'],
+              ['link', 'image', 'video']
+            ]
             // handlers: {
             //   'image': this.imageHandler
             // }
@@ -67,43 +69,42 @@ export default {
               border: 'none',
               color: 'white'
             },
-            modules: ['Resize', 'DisplaySize', 'Toolbar'],
-
-          },
-        },
+            modules: ['Resize', 'DisplaySize', 'Toolbar']
+          }
+        }
       }
     }
   },
-  methods: {
-    imageHandler () {
-      alert('image handler customize')
-    },
-    onEditorBlur (editor) {
-      console.log('editor blur!', editor)
-    },
-    onEditorFocus (editor) {
-      console.log('editor focus!', editor)
-    },
-    onEditorReady (editor) {
-      console.log('editor ready!', editor)
-    },
-    getContent () {
-      this.contentCode = hljs.highlightAuto(`${this.editorContent}`).value
-    }
-  },
   watch: {
-    editorContent (newC, oldC) {
+    editorContent(newC, oldC) {
       this.contentCode = '<p>Waiting for you to stop typing...</p>'
       this.debouncedGetContent()
     }
   },
-  mounted () {
+  mounted() {
     this.getContent()
     console.log('app init, my quill insrance object is:', this.myQuillEditor)
   },
-  created () {
+  created() {
     this.debouncedGetContent = _.debounce(this.getContent, 500)
   },
+  methods: {
+    imageHandler() {
+      alert('image handler customize')
+    },
+    onEditorBlur(editor) {
+      console.log('editor blur!', editor)
+    },
+    onEditorFocus(editor) {
+      console.log('editor focus!', editor)
+    },
+    onEditorReady(editor) {
+      console.log('editor ready!', editor)
+    },
+    getContent() {
+      this.contentCode = hljs.highlightAuto(`${this.editorContent}`).value
+    }
+  }
 }
 </script>
 

@@ -15,10 +15,10 @@
 
         <v-list-item-subtitle class="mb-4">
           <v-layout>
-            <b-btn-text class="ml-0">Liked</b-btn-text>
-            <b-btn-text>Reply</b-btn-text>
-            <b-btn-text>3h</b-btn-text>
-            <b-btn-text>16 likes</b-btn-text>
+            <b-button-text class="mx-1 ml-0">Liked</b-button-text>
+            <b-button-text class="mx-1">Reply</b-button-text>
+            <b-button-text class="mx-1">3h</b-button-text>
+            <b-button-text class="mx-1">16 likes</b-button-text>
           </v-layout>
         </v-list-item-subtitle>
       </v-list-item-content>
@@ -30,12 +30,7 @@
 </template>
 
 <script>
-import BaseButtonText from '@/components/base/ButtonText'
-
 export default {
-  components: {
-    'b-btn-text': BaseButtonText
-  },
   props: {
     comment: {
       type: String,
