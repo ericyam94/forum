@@ -1,8 +1,20 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      fixed
+      app
+    >
       <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -22,7 +34,14 @@
           <v-btn text>Discover</v-btn>
           <v-btn text>Community</v-btn>
           <!-- </v-toolbar-items> -->
-          <v-text-field dense filled hide-details placeholder="Search..." rounded single-line />
+          <v-text-field
+            dense
+            filled
+            hide-details
+            placeholder="Search..."
+            rounded
+            single-line
+          />
           <v-spacer />
 
           <v-menu auto offset-y>
