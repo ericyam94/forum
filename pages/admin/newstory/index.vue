@@ -34,6 +34,7 @@
 
 <script>
 import hljs from 'highlight.js'
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import contentjs, { selectText } from './ext_obj.js'
 
@@ -88,6 +89,9 @@ export default {
       }
     }
   },
+  computed: mapGetters({
+    todos: 'todos/todos'
+  }),
   watch: {
     editorContent(newC, oldC) {
       this.contentCode = '<p>Waiting for you to stop typing...</p>'
@@ -103,6 +107,10 @@ export default {
   },
   methods: {
     selectText,
+    addTodo() {
+      const text = 'abc'
+      this.$store.commit('todos/add', { text })
+    },
     copyText() {
       this.selectText(this.$refs.htmlText)
       document.execCommand('copy')

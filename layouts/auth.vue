@@ -94,6 +94,11 @@ export default {
       items: [
         {
           icon: 'mdi-account-tie',
+          title: 'dashboard',
+          to: '/admin/dashboard'
+        },
+        {
+          icon: 'mdi-account-tie',
           title: 'new-story',
           to: '/admin/newstory'
         }
