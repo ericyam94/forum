@@ -46,7 +46,7 @@
           <div class="d-none d-sm-flex">
             <!-- <v-toolbar-items> -->
             <v-btn :to="{ name: 'feed' }" text>Feed</v-btn>
-            <v-btn :to="{ name: 'test' }" text>Discover</v-btn>
+            <v-btn :to="{ name: 'discussion' }" text>Discussions</v-btn>
             <v-btn text>Community</v-btn>
             <!-- </v-toolbar-items> -->
           </div>

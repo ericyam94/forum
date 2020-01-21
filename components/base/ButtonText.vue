@@ -1,5 +1,10 @@
 <template>
-  <span v-bind="$attrs" v-on="$listeners" class="button-text text-none">
+  <span
+    v-bind="$attrs"
+    v-on="$listeners"
+    @click="$attrs.to ? $router.push($attrs.to) : null"
+    class="button-text text-none"
+  >
     <slot></slot>
   </span>
 </template>
